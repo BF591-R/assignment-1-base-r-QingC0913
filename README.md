@@ -21,7 +21,7 @@ Please read sections 5.3 through 5.10 in the textbook. Section 5.3 starts [here]
 
 ### Instructions
 
-Please use the github classroom link provided on blackboardto create your own repo
+Please use the github classroom link provided on blackboard to create your own repo
 for this assignment.
 
 The project is laid out as such:  
