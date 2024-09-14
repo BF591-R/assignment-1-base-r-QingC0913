@@ -111,7 +111,7 @@ summarize_rows <- function(x, fn, na.rm=FALSE) {
   #   x <- matrix(x[! is.na(x)])
   # }
   #   
-  return(apply(x, MARGIN = 1, FUN = fn))
+  return(apply(x, MARGIN = 1, FUN = fn, na.rm = na.rm))
 }
 
 #' Summarize matrix rows into data frame
@@ -152,24 +152,24 @@ summarize_rows <- function(x, fn, na.rm=FALSE) {
 #' 4  0.09518138 1.030461  0.11294781 -3.409049 2.544992       90              72      0
 #' 
 summarize_matrix <- function(x, na.rm=FALSE) {
-    means <- apply(x, MARGIN = 1, FUN = mean)
-    stdevs <- apply(x, MARGIN = 1, FUN = sd)
-    medians <- apply(x, MARGIN = 1, FUN = median)
-    mins <- apply(x, MARGIN = 1, FUN = min)
-    maxes <- apply(x, MARGIN = 1, FUN = max)
-    lt0 <- apply(x, MARGIN = 1, FUN = function(r) {
-        length(r[r < 0])
-    })
-    gt1_lt5s <- apply(x, MARGIN = 1, FUN = function(r) {
-        length(r[r > 1 & r < 5])
-    })
-    is_nas <- apply(x, MARGIN = 1, FUN = function(r) {
-        length(r[is.na(r)])
-    })
-    to_return <- data.frame(mean = means, stdev = stdevs, median = medians, 
-                            min = mins, max = maxes, num_lt_0 = lt0, 
-                            num_btw_1_and_5 = gt1_lt5s, num_na = is_nas)
-    return(to_return)
+  means <- apply(x, MARGIN = 1, FUN = mean, na.rm = na.rm)
+  stdevs <- apply(x, MARGIN = 1, FUN = sd, na.rm = na.rm)
+  medians <- apply(x, MARGIN = 1, FUN = median, na.rm = na.rm)
+  mins <- apply(x, MARGIN = 1, FUN = min, na.rm = na.rm)
+  maxes <- apply(x, MARGIN = 1, FUN = max, na.rm = na.rm)
+  lt0 <- apply(x, MARGIN = 1, FUN = function(r) {
+    length(r[r < 0])
+  })
+  gt1_lt5s <- apply(x, MARGIN = 1, FUN = function(r) {
+    length(r[r > 1 & r < 5])
+  })
+  is_nas <- apply(x, MARGIN = 1, FUN = function(r) {
+    length(r[is.na(r)])
+  })
+  to_return <- data.frame(mean = means, stdev = stdevs, median = medians, 
+                          min = mins, max = maxes, num_lt_0 = lt0, 
+                          num_btw_1_and_5 = gt1_lt5s, num_na = is_nas)
+  return(to_return)
 }
 a <- matrix(c(1:9), nrow =3 )
 summarize_matrix(a)
