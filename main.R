@@ -152,27 +152,32 @@ summarize_rows <- function(x, fn, na.rm=FALSE) {
 #' 4  0.09518138 1.030461  0.11294781 -3.409049 2.544992       90              72      0
 #' 
 summarize_matrix <- function(x, na.rm=FALSE) {
-  means <- apply(x, MARGIN = 1, FUN = mean, na.rm = na.rm)
+  # the fourth parameter in apply(): "na.rm" is a parameter that will be passed in to FUN
+  # the value of the "na.rm" argument is stored in a variable called "na.rm" 
+  # and it was passed into the summarize_matrix() function 
+  means <- apply(x, MARGIN = 1, FUN = mean, na.rm = na.rm) 
   stdevs <- apply(x, MARGIN = 1, FUN = sd, na.rm = na.rm)
   medians <- apply(x, MARGIN = 1, FUN = median, na.rm = na.rm)
   mins <- apply(x, MARGIN = 1, FUN = min, na.rm = na.rm)
   maxes <- apply(x, MARGIN = 1, FUN = max, na.rm = na.rm)
-  lt0 <- apply(x, MARGIN = 1, FUN = function(r) {
-    length(r[r < 0])
+  # in the anonymous funcs, r is each row where FUN will be apply()ed 
+  lt0 <- apply(x, MARGIN = 1, FUN = function(r, rm_nas = na.rm) {
+    return(sum(r < 0, na.rm = rm_nas))
   })
-  gt1_lt5s <- apply(x, MARGIN = 1, FUN = function(r) {
-    length(r[r > 1 & r < 5])
+  gt1_lt5s <- apply(x, MARGIN = 1, FUN = function(r, rm_nas = na.rm) {
+    return(sum(r > 1 & r < 5, na.rm = rm_nas))
   })
-  is_nas <- apply(x, MARGIN = 1, FUN = function(r) {
-    length(r[is.na(r)])
+  is_nas <- apply(x, MARGIN = 1, FUN = function(r, rm_nas = na.rm) {
+    if (rm_nas) { 
+      return(0)
+    }
+    return (sum(is.na(r)))
   })
   to_return <- data.frame(mean = means, stdev = stdevs, median = medians, 
                           min = mins, max = maxes, num_lt_0 = lt0, 
                           num_btw_1_and_5 = gt1_lt5s, num_na = is_nas)
   return(to_return)
 }
-a <- matrix(c(1:9), nrow =3 )
-summarize_matrix(a)
 
 # ------------ Helper Functions Used By Assignment, You May Ignore ------------
 sample_normal <- function(n, mean=0, sd=1) {
