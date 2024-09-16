@@ -162,15 +162,15 @@ describe("summarize_matrix() works with na.rm=FALSE", {
   it("returns max correctly", {
     expect_equal(m_summary$max, c(3, NA, 9))
   })
-#   it("returns numbers less than zero correctly", {
-#     expect_equal(m_summary$num_lt_0, c(0, NA, 0))
-#   })
-#   it("returns numbers netween 1 and 5 correctly", {
-#     expect_equal(m_summary$num_btw_1_and_5, c(2, NA, 0))
-#   })
-#   it("returns number of NAs correctly", {
-#     expect_equal(m_summary$num_na, c(0, 1, 0))
-#   })
+  it("returns numbers less than zero correctly", {
+    expect_equal(m_summary$num_lt_0, c(0, NA, 0))
+  })
+  it("returns numbers netween 1 and 5 correctly", {
+    expect_equal(m_summary$num_btw_1_and_5, c(2, NA, 0))
+  })
+  it("returns number of NAs correctly", {
+    expect_equal(m_summary$num_na, c(0, 1, 0))
+  })
 })
 # 
 describe("summarize_matrix() works with na.rm=TRUE", {
@@ -191,13 +191,13 @@ describe("summarize_matrix() works with na.rm=TRUE", {
   it("returns max correctly", {
     expect_equal(m_summary$max, c(3, 6, 9))
   })
-#   it("returns numbers less than zero correctly", {
-#     expect_equal(m_summary$num_lt_0, c(0, 0, 0))
-#   })
-#   it("returns numbers netween 1 and 5 correctly", {
-#     expect_equal(m_summary$num_btw_1_and_5, c(2, 0, 0))
-#   })
-#   it("returns number of NAs correctly", {
-#     expect_equal(m_summary$num_na, c(0, 0, 0))
-#   })
+  it("returns numbers less than zero correctly", {
+    expect_equal(m_summary$num_lt_0, c(0, 0, 0))
+  })
+  it("returns numbers netween 1 and 5 correctly", {
+    expect_equal(m_summary$num_btw_1_and_5, c(2, 0, 0))
+  })
+  it("returns number of NAs correctly", {
+    expect_equal(m_summary$num_na, c(0, 0, 0))
+  })
 })
